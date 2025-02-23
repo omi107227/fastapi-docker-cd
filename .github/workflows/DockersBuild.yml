@@ -13,7 +13,7 @@ jobs:
         run: echo "${{ secrets.DOCKERTOKEN }}" | docker login -u omikumari --password-stdin
 
       - name: Build Docker Image
-        run: docker build -t omi107227/fastapi-docker-cd:latest .
+        run: docker build -t omikumari/fastapi-docker-cd:latest .
 
       - name: Push Docker Image
-        run: docker push omi107227/fastapi-docker-cd:latest
+        run: docker push omikumari/fastapi-docker-cd:latest
