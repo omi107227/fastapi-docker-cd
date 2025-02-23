@@ -1,20 +1,17 @@
-# Use Ubuntu as the base image
-FROM ubuntu:latest
+# Use an official Python runtime as a parent image
+FROM python:3.9
 
-# Install Python and dependencies
-RUN apt update && apt install -y python3 python3-pip
-
-# Set working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy application files
+# Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install required dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Install dependencies from requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 8000
+# Expose port 8000 for the FastAPI app
 EXPOSE 8000
 
-# Run FastAPI app
+# Run FastAPI using Uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
