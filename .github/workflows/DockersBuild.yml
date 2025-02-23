@@ -1,0 +1,22 @@
+name: Docker Image Build & Push
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        env:
+          DOCKER_USERNAME: omi107227
+          DOCKER_PASSWORD: ${{ secrets.DOCKERTOKEN }}
+        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t omi107227/fastapi-docker-cd:latest .
+
+      - name: Push Docker Image
+        run: docker push omi107227/fastapi-docker-cd:latest
